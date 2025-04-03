@@ -6,26 +6,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Agendamento")
-// @Table(name = "Appointment")
 public class Appointment {
-    //Entity class for Agendamento
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "professional_id", nullable = false)
     private Professional professional;
 
-    private String service; // Exemplo: "Corte de cabelo", "Coloração", etc.
+    private String service;
 
-    private LocalDateTime dateTime; // Data e hora do agendamento
-
+    private LocalDateTime dateTime;
 }
