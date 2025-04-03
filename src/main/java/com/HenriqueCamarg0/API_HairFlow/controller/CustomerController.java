@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.HenriqueCamarg0.API_HairFlow.Entity.Customer;
 import com.HenriqueCamarg0.API_HairFlow.dto.CustomerDTO;
-import com.HenriqueCamarg0.API_HairFlow.service.HeirFlowService;
+import com.HenriqueCamarg0.API_HairFlow.service.CustomerService;
 
 import lombok.AllArgsConstructor;
 
@@ -19,9 +19,9 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/HeirFlow")
 @AllArgsConstructor
 @CrossOrigin
-public class HairFlowController {
+public class CustomerController {
     
-    private final HeirFlowService Service;
+    private final CustomerService Service;
 
     //Cadastrar cliente
     @PostMapping("/customer")

@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-
-public class HeirFlowService {
+public class CustomerService {
 
     private final CustomerRepository Repository;
 
