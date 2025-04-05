@@ -25,9 +25,15 @@ public class AppointmentController {
     // Método para cadastrar agendamento
     @PostMapping("/new")
     public ResponseEntity<Appointment> cadastrar(@RequestBody AppointmentDTO dto) {
-        System.out.println("Recebendo requisição de agendamento: " + dto);
-        Appointment appointment = appointmentService.cadastrar(dto);
-        System.out.println("Agendamento criado com sucesso: " + appointment);
-        return ResponseEntity.status(HttpStatus.CREATED).body(appointment);
+        try {
+            System.out.println("Recebendo agendamento: " + dto);
+            System.out.println("Data: " + dto.getDate());
+            System.out.println("Hora: " + dto.getTime());
+            Appointment appointment = appointmentService.cadastrar(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(appointment);
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
