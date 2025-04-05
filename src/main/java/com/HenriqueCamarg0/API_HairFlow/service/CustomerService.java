@@ -1,5 +1,7 @@
 package com.HenriqueCamarg0.API_HairFlow.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.HenriqueCamarg0.API_HairFlow.Entity.Customer;
@@ -23,4 +25,9 @@ public class CustomerService {
 
         return Repository.save(customer);
    }
+
+     //Lista de clientes cadastrados
+     public List<Customer> listar() {
+          return Repository.findAll();
+     }
 }

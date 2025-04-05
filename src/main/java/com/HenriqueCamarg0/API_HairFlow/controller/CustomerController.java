@@ -1,5 +1,7 @@
 package com.HenriqueCamarg0.API_HairFlow.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,8 +32,10 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(customer);
     }
 
-    @GetMapping("/test")
-public ResponseEntity<String> test() {
-    return ResponseEntity.ok("API is working!");
-}
+    //Lista de clientes cadastrados
+    @GetMapping("/customerList")
+    public ResponseEntity<List<Customer>> listar() {
+        List<Customer> customers = Service.listar();
+        return ResponseEntity.ok(customers);
+    }
 }

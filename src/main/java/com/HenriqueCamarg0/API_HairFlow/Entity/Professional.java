@@ -2,11 +2,16 @@ package com.HenriqueCamarg0.API_HairFlow.Entity;
 
 import java.util.List;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -24,11 +29,21 @@ public class Professional {
 
     @Column(nullable = false)
     @NotNull
-    private String name; 
+    private String name; // Nome do profissional
 
-    private String expertise; // Exemplo: "Cortes", "Coloração", etc.
+    private String email; // Email do profissional
 
-    private Boolean isAvailable; // Indica se o profissional está disponível para agendamentos
+    private String phone; // Telefone do profissional
+
+    
+    @ElementCollection
+    @CollectionTable(
+        name = "professional_work_days", // Tabela de dias de trabalho
+        joinColumns = @JoinColumn(name = "professional_id") // Chave estrangeira para a tabela Profissional
+    )
+    @Enumerated(EnumType.STRING) // Enumeração para armazenar os dias de trabalho
+    @Column(name = "work_day")
+    private List<WorkDay> workDays; // Dias de trabalho
 
     // Relacionamento com agendamentos
     @OneToMany(mappedBy = "professional")
