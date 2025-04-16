@@ -5,5 +5,4 @@ public enum Status {
     CONFIRMED,
     CANCELED,
     COMPLETED,
-    NO_SHOW; // Ausente (não compareceu) - opcional, dependendo do seu fluxo de trabalho
-}
+    NO_SHOW; }

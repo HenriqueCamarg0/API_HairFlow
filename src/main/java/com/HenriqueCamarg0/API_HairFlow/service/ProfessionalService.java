@@ -24,4 +24,35 @@ public class ProfessionalService {
 
         return repository.save(professional);
     }
+
+    //Listar de profissionais   
+    public Iterable<Professional> listarProfissionais() {
+        return repository.findAll();
+    }
+
+    //Buscar profissional por ID
+    public Professional buscarPorId(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    //Atualizar profissional
+    public Professional atualizar(Long id, ProfessionalDTO dto) {
+        Professional professional = repository.findById(id).orElse(null);
+        if (professional != null) {
+            professional.setName(dto.getName());
+            professional.setEmail(dto.getEmail());
+            professional.setPhone(dto.getPhone());
+            professional.setWorkDays(dto.getWorkDays());
+            return repository.save(professional);
+        }
+        return null;
+    }
+
+    //Deletar profissional
+    public void deletar(Long id) {
+        Professional professional = repository.findById(id).orElse(null);
+        if (professional != null) {
+            repository.delete(professional);
+        }
+    }
 }

@@ -30,4 +30,27 @@ public class CustomerService {
      public List<Customer> listar() {
           return Repository.findAll();
      }
+
+     //Buscar cliente por ID
+     public Customer buscarPorId(Long id) {
+          return Repository.findById(id).orElse(null);
+     }
+
+     //Atualizar cliente
+     public Customer atualizar(Long id, CustomerDTO dto) {
+          Customer customer = buscarPorId(id);
+          if (customer != null) {
+               customer.setName(dto.getName());
+               customer.setEmail(dto.getEmail());
+               customer.setPhone(dto.getPhone());
+               return Repository.save(customer);
+          }else{
+               return null;
+          }
+     }
+
+     //Deletar cliente
+     public void deletar(Long id) {
+          Repository.deleteById(id);
+     }
 }
