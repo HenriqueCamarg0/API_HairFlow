@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import lombok.RequiredArgsConstructor;
-
-import com.HenriqueCamarg0.API_HairFlow.Entity.User;
 import com.HenriqueCamarg0.API_HairFlow.dto.UserDTO;
 import com.HenriqueCamarg0.API_HairFlow.service.UserService;
 
@@ -35,7 +31,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDTO dto) {
         try {
-            User user = userService.authenticate(dto);
             return ResponseEntity.ok("Login realizado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
