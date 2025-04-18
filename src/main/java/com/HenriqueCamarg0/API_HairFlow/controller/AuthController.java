@@ -7,36 +7,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.HenriqueCamarg0.API_HairFlow.dto.LoginDTO;
-import com.HenriqueCamarg0.API_HairFlow.dto.RegisterDTO;
-import com.HenriqueCamarg0.API_HairFlow.service.AuthService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import com.HenriqueCamarg0.API_HairFlow.Entity.User;
+import com.HenriqueCamarg0.API_HairFlow.dto.UserDTO;
+import com.HenriqueCamarg0.API_HairFlow.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @CrossOrigin
 public class AuthController {
-    
-    private final AuthService authService;
+
+    private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterDTO registerDTO) {
+    public ResponseEntity<?> register(@RequestBody UserDTO dto) {
         try {
-            authService.registerUser(registerDTO);
-            return ResponseEntity.ok("Usuário registrado com sucesso");
+            userService.register(dto);
+            return ResponseEntity.ok("Usuário cadastrado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody UserDTO dto) {
         try {
-            String token = authService.authenticateUser(loginDTO);
-            return ResponseEntity.ok(token);
+            User user = userService.authenticate(dto);
+            return ResponseEntity.ok("Login realizado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
