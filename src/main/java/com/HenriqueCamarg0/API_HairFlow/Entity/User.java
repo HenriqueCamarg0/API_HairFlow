@@ -1,12 +1,21 @@
 package com.HenriqueCamarg0.API_HairFlow.Entity;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.management.relation.Role;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name = "User")
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +30,50 @@ public class User {
     @Column(nullable = false)
     private String Password;
     
-    private String telefone;
+    private UserRole role;
+
+    public User(String username, String email, String Password, UserRole role) {
+        this.username = username;
+        this.Password = Password;
+        this.email = email;
+        this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+    }
     
-    private UserRole role = UserRole.CUSTOMER;
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override  
+    public String getPassword() {
+        return Password;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

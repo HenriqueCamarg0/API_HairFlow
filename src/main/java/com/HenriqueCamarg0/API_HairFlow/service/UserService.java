@@ -15,15 +15,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public User register(UserDTO dto) {
-        if (userRepository.existsByEmail(dto.getEmail())) {
-            throw new RuntimeException("Email já cadastrado!");
-        }
-
-        User user = new User();
+       
+        User user = new User(null, null, null, null);
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword())); // Criptografando senha
-        
+        user.setRole(dto.getRole()); // Definindo o papel do usuário (ROLE_CUSTOMER ou ROLE_ADMIN)     
+           
         return userRepository.save(user);
     }
 
