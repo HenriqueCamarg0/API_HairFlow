@@ -1,7 +1,6 @@
 package com.HenriqueCamarg0.API_HairFlow.dto;
 
 
-import javax.management.relation.Role;
 
 import com.HenriqueCamarg0.API_HairFlow.Entity.UserRole;
 

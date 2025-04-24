@@ -2,6 +2,7 @@ package com.HenriqueCamarg0.API_HairFlow.dto;
 
 import lombok.Data;
 
+@Data
 public class LoginResponseDTO {
     private final String token;
 

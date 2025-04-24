@@ -9,8 +9,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import com.HenriqueCamarg0.API_HairFlow.Entity.User;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -19,12 +17,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 @Service
 public class TokenService {
 
-    // Injeta o valor do segredo do token JWT a partir do arquivo de propriedades
-    // Isso permite que o segredo seja configurado externamente, por exemplo, em um arquivo application.properties
-    @Value("${api.security.token.secret}") 
+    @Value("${api.security.token.secret}")
     private String secret;
 
-    // Método para gerar o token JWT
     public String generateToken(UserDetails user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -38,7 +33,6 @@ public class TokenService {
         }
     }
 
-    // Método para validar o token JWT
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -48,16 +42,13 @@ public class TokenService {
                 .verify(token)
                 .getSubject();
         } catch (JWTVerificationException exception) {
-            return ""; // Retorna null se o token não for válido
+            throw new RuntimeException("Erro ao validar o token JWT: " + exception.getMessage(), exception);
         }
     }
 
-    // Método para gerar a data de expiração do token
     private Instant genExpirationData() {
         return LocalDateTime.now()
             .plusHours(2)
-            .toInstant(ZoneOffset.of("-03:00")); // Configura a expiração para 2 horas
+            .toInstant(ZoneOffset.of("-03:00"));
     }
-
-
 }

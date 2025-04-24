@@ -14,10 +14,8 @@ public class AuthorizationService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        // Aqui você pode implementar a lógica para carregar o usuário do banco de dados
-        // e retornar um objeto UserDetails correspondente.
-        return userRepository.findByEmail(username)
+    public UserDetails loadUserByUsername(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
     }
 }
