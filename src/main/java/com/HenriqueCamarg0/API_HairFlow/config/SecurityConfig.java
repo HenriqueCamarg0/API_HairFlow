@@ -33,18 +33,16 @@ public class SecurityConfig {
     http
         .cors(cors -> cors.configurationSource(request -> {
             var corsConfiguration = new CorsConfiguration();
-            corsConfiguration.setAllowedOrigins(List.of(allowedOrigin));
+            corsConfiguration.setAllowedOrigins(List.of("*")); // permite qualquer origem
             corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
             corsConfiguration.setAllowedHeaders(List.of("*"));
-            corsConfiguration.setAllowCredentials(true);
+            corsConfiguration.setAllowCredentials(false); // tem que ser false se allowedOrigins for "*"
             return corsConfiguration;
         }))
+        
             .csrf(csrf -> csrf.disable()) // Desabilita CSRF
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define sessão como stateless
             .authorizeHttpRequests(auth -> auth
-                // .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll() // Permite acesso ao endpoint de login
-                // .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll() // Permite acesso ao endpoint de registro                .requestMatchers("/api/user/register").hasRole("ADMIN") // Apenas ADMIN pode registrar usuários
-                // .anyRequest().authenticated() // Qualquer outra requisição deve ser autenticada
                 .anyRequest().permitAll() // Permite todas as rotas
             )
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class); // Adiciona o filtro JWT antes do filtro de autenticação padrão
