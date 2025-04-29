@@ -76,13 +76,12 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-	<dependency>
-    <groupId>com.mysql</groupId>
-    <artifactId>mysql-connector-j</artifactId>
-	    <version>8.3.0</version> <!-- ou a versão mais recente estável -->
-
-    <scope>runtime</scope>
-</dependency>
+		<dependency>
+    		<groupId>com.mysql</groupId>
+    		<artifactId>mysql-connector-j</artifactId>
+    		<version>8.3.0</version>
+    		<scope>runtime</scope>
+		</dependency>
 		
 		<!-- Spring Security -->
     	<dependency>
