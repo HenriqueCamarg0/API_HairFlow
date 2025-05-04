@@ -8,7 +8,6 @@ public class ApiHairFlowApplication {
 	
 	public static void main(String[] args) {
 		System.out.println("=== Código atualizado em 03/05 ===");
-		
 		SpringApplication.run(ApiHairFlowApplication.class, args);
 	}
 
